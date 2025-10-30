@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Saved Bills - Harvester Calculator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-primary">
+  <div class="container-fluid">
+    <span class="navbar-brand mb-0 h1">
+      <img src="/static/images/logo.svg" width="36" height="36" alt="logo" class="me-2" />
+      SR Harvester Company - Saved Bills
+    </span>
+  </div>
+</nav>
+
+<div class="container my-4">
+  <div class="d-flex justify-content-between mb-2">
+    <h4>Saved Bills</h4>
+    <a href="/index" class="btn btn-primary">Create New</a>
+  </div>
+
+  <table class="table table-striped table-responsive">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Date</th>
+        <th>Customer</th>
+        <th>Start - Stop</th>
+        <th>Hours</th>
+        <th>Bill (₹)</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="b,iterStat : ${bills}">
+        <td th:text="${iterStat.index + 1}">1</td>
+        <td th:text="${b.date}">2025-10-30</td>
+        <td th:text="${b.customerName}">Ramu</td>
+        <td th:text="${b.startTime} + ' / ' + ${b.stopTime}">09:30 AM / 11:00 AM</td>
+        <td th:text="${b.totalHours}">1.5</td>
+        <td th:text="${b.totalBill}">4500</td>
+        <td>
+          <a th:href="@{|/view/${b.id}|}" class="btn btn-sm btn-outline-secondary">View</a>
+          <a th:href="@{|/edit/${b.id}|}" class="btn btn-sm btn-outline-primary">Edit</a>
+          <a th:href="@{|/delete/${b.id}|}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this bill?')">Delete</a>
+        </td>
+      </tr>
+      <tr th:if="${#lists.isEmpty(bills)}">
+        <td colspan="7">No bills yet.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
