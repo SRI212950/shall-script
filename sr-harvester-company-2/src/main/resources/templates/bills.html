@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Saved Bills</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-3">
+    <h4>Saved Bills</h4>
+    <a href="/sr-harvester-company/" class="btn btn-primary mb-2">New Bill</a>
+    <table class="table table-striped">
+        <thead><tr><th>#</th><th>Date</th><th>Customer</th><th>Mobile</th><th>Start</th><th>Stop</th><th>Hourly</th><th>Total</th><th>Paid</th></tr></thead>
+        <tbody>
+        <tr th:each="b, stat : ${bills}" th:classappend="${b.paid} ? 'table-success' : ''">
+            <td th:text="${stat.index + 1}"></td>
+            <td th:text="${b.billDate}"></td>
+            <td th:text="${b.customerName}"></td>
+            <td th:text="${b.mobileNumber}"></td>
+            <td th:text="${b.startTime}"></td>
+            <td th:text="${b.stopTime}"></td>
+            <td th:text="${b.hourlyRate}"></td>
+            <td th:text="${b.totalBill}"></td>
+            <td th:text="${b.paid} ? 'Yes' : 'No'"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
